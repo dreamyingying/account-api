@@ -9,6 +9,7 @@ package com.menglei.account.api.accountapi.entity;
   **/
 public class User extends BaseEntity {
 
+    private static final long serialVersionUID = -3255678463623402954L;
     /**
      * 用户名
      */
@@ -27,7 +28,7 @@ public class User extends BaseEntity {
     /**
      * 性别
      */
-    private byte sex;
+    private Byte sex;
 
     /**
      * 生日
@@ -52,7 +53,7 @@ public class User extends BaseEntity {
     /**
      * 状态【默认是1：正常；0是超级用户；】
      */
-    private byte status;
+    private Byte status;
 
     public String getUserName() {
         return userName;

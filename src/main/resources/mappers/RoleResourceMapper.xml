@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.menglei.account.api.accountapi.dao.IRoleResourceDAO">
+
+<sql id="Base_Column_List">
+    `role_id` as `roleId`,
+    `resource_id` as `resourceId`
+</sql>
+
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.menglei.account.api.accountapi.dao.IDebtDAO">
+
+<sql id="Base_Column_List">
+    `id` as `id` ,
+    `name` as `name` ,
+    `family_id` as `familyId` ,
+    `type` as `type` ,
+    `quota` as `quota` ,
+    `description` as `description` ,
+    `status` as `status` ,
+    `creater` as `creater` ,
+    `create_time` as `createTime` ,
+    `update_time` as `updateTime` ,
+    `updater` as `updater`
+</sql>
+
+</mapper>

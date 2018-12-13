@@ -1,5 +1,7 @@
 package com.menglei.account.api.accountapi.entity;
 
+import java.io.Serializable;
+
 /**
   * @className BaseEntity
   * Description 基础实体
@@ -7,8 +9,9 @@ package com.menglei.account.api.accountapi.entity;
   * @author Menglei（lei.meng@cmgplex.com)
   * @version 1.0
   **/
-public class BaseEntity {
+public class BaseEntity implements Serializable {
 
+    private static final long serialVersionUID = 4458617931513088934L;
     /**
      * 主键
      */
