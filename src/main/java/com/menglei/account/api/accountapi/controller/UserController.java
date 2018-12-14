@@ -2,10 +2,10 @@ package com.menglei.account.api.accountapi.controller;
 
 import com.menglei.account.api.accountapi.common.JsonResult;
 import com.menglei.account.api.accountapi.common.enums.RetCodeEnum;
-import com.menglei.account.api.accountapi.entity.User;
 import com.menglei.account.api.accountapi.exception.NoDataException;
 import com.menglei.account.api.accountapi.exception.UnknownException;
 import com.menglei.account.api.accountapi.service.IUserService;
+import com.menglei.account.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

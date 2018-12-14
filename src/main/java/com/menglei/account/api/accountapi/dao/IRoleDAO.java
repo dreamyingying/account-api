@@ -1,6 +1,6 @@
 package com.menglei.account.api.accountapi.dao;
 
-import com.menglei.account.api.accountapi.entity.Role;
+import com.menglei.account.entity.Role;
 import org.springframework.stereotype.Repository;
 
 /**

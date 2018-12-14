@@ -1,6 +1,6 @@
 package com.menglei.account.api.accountapi.dao;
 
-import com.menglei.account.api.accountapi.entity.BaseEntity;
+import com.menglei.account.entity.BaseEntity;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

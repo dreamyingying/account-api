@@ -31,14 +31,14 @@ public class GlobalExceptionHandler implements ErrorController {
      *
      * @return
      */
-    @RequestMapping("/error")
+    /*@RequestMapping("/error")
     @ResponseBody
     public JsonResult<String> err404() {
         JsonResult<String> jr = new JsonResult<>();
         jr.setCode(RetCodeEnum.UNIFIED.getCode());
         jr.setMessage(RetCodeEnum.UNIFIED.getMessage());
         return jr;
-    }
+    }*/
 
     /**
      * 拦截自定义异常处理

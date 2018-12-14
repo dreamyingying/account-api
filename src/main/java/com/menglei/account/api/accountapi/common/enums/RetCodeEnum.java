@@ -30,6 +30,10 @@ public enum RetCodeEnum {
      * 不便归类到的其他错误
      * */
     UNIFIED("8299", "不便归类的其他错误"),
+    /**
+     * 上游服务不可达
+     */
+    BADGATEWAY("8502","上游服务不可达")
 
     ;
 

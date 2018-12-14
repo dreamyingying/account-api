@@ -1,8 +1,8 @@
 package com.menglei.account.api.accountapi.service.impl;
 
 import com.menglei.account.api.accountapi.dao.IUserDAO;
-import com.menglei.account.api.accountapi.entity.User;
 import com.menglei.account.api.accountapi.service.IUserService;
+import com.menglei.account.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

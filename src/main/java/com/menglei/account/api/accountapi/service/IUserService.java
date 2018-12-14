@@ -1,6 +1,6 @@
 package com.menglei.account.api.accountapi.service;
 
-import com.menglei.account.api.accountapi.entity.User;
+import com.menglei.account.entity.User;
 
 import java.util.List;
 
