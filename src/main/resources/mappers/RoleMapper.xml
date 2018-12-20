@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.menglei.account.api.accountapi.dao.IRoleDAO">
+<mapper namespace="com.menglei.account.api.accountapi.dao.IRoleDAOI">
 
 
 <sql id="Base_Column_List">
@@ -10,7 +10,7 @@
     `role_key` as `roleKey` ,
     `description` as `description` ,
     `status` as `status` ,
-    `creater` as `creater` ,
+    `creator` as `creator` ,
     `create_time` as `createTime` ,
     `update_time` as `updateTime` ,
     `updater` as `updater`

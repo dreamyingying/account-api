@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.menglei.account.api.accountapi.dao.IUserDAO">
+<mapper namespace="com.menglei.account.api.accountapi.dao.IUserDAOI">
 <!--
 insert 单条插入
 
@@ -39,7 +39,7 @@ selectMaxId 返回表内最大id
     `email` as `email` ,
     `description` as `description` ,
     `status` as `status` ,
-    `creater` as `creater` ,
+    `creator` as `creator` ,
     `create_time` as `createTime` ,
     `update_time` as `updateTime` ,
     `updater` as `updater` ,
@@ -58,7 +58,7 @@ selectMaxId 返回表内最大id
             email ,
             description ,
             status ,
-            creater ,
+            creator ,
             create_time ,
             update_time ,
             updater ,
@@ -73,7 +73,7 @@ selectMaxId 返回表内最大id
         #{email},
         #{description},
         #{status},
-        #{creater},
+        #{creator},
         #{create_time},
         #{update_time},
         #{updater},
@@ -89,8 +89,8 @@ selectMaxId 返回表内最大id
         <if test="status!=null">
         status = #{status},
         </if>
-        <if test="creater!=null">
-        creater = #{creater},
+        <if test="creator!=null">
+        creator = #{creator},
         </if>
         <if test="createTime!=null">
         create_time = #{createTime},
@@ -150,6 +150,7 @@ selectMaxId 返回表内最大id
     FROM user
     <trim prefix="WHERE" prefixOverrides="AND | OR">
     AND id = #{id}
+        AND status = 1
     </trim>
 </select>
 
@@ -175,68 +176,357 @@ selectMaxId 返回表内最大id
     FROM user
     <if test="condition!=null">
         <trim prefix="WHERE" prefixOverrides="AND | OR">
+            1=1
             <if test="condition.id!=null">
                 AND id = #{condition.id}
             </if>
             <if test="condition.status!=null">
                 AND
-                status = #{condition.status},
+                status = #{condition.status}
             </if>
-            <if test="condition.creater!=null">
+            <if test="condition.creator!=null">
                 AND
-                creater = #{condition.creater},
+                creator = #{condition.creator}
             </if>
             <if test="condition.createTime!=null">
                 AND
-                create_time = #{condition.createTime},
+                create_time = #{condition.createTime}
             </if>
             <if test="condition.updater!=null">
                 AND
-                updater = #{condition.updater},
+                updater = #{condition.updater}
             </if>
             <if test="condition.updateTime!=null">
                 AND
-                update_time = #{condition.updateTime},
+                update_time = #{condition.updateTime}
             </if>
             <if test="condition.userName!=null">
                 AND
-                user_name = #{condition.userName},
+                user_name = #{condition.userName}
             </if>
             <if test="condition.password!=null">
                 AND
-                password = #{condition.password},
+                password = #{condition.password}
             </if>
             <if test="condition.name!=null">
                 AND
-                name = #{condition.name},
+                name = #{condition.name}
             </if>
             <if test="condition.sex!=null">
                 AND
-                sex = #{condition.sex},
+                sex = #{condition.sex}
             </if>
             <if test="condition.birthday!=null">
                 AND
-                birthday = #{condition.birthday},
+                birthday = #{condition.birthday}
             </if>
             <if test="condition.telephone!=null">
                 AND
-                telephone = #{condition.telephone},
+                telephone = #{condition.telephone}
             </if>
             <if test="condition.email!=null">
                 AND
-                email = #{condition.email},
+                email = #{condition.email}
             </if>
             <if test="condition.address!=null">
                 AND
-                address = #{condition.address},
+                address = #{condition.address}
             </if>
             <if test="condition.description!=null">
                 AND
-                description = #{condition.description},
+                description = #{condition.description}
             </if>
         </trim>
     </if>
     limit 0,1
 </select>
+
+<select id="queryCount" resultType="java.lang.Integer">
+
+    SELECT count(id) FROM user
+    <where>
+        <if test="condition!=null">
+            <if test="condition.SubSql != null">
+                and id in (#{condition.SubSql})
+            </if>
+            <if test="condition.whereSql != null">
+                ${condition.whereSql}
+            </if>
+
+            <if test="condition.id!=null">
+                ${condition.groupOp} ${condition.id.field} ${condition.id.op}
+                <if test="condition.id.op!='in'"> #{condition.id.data} </if>
+                <if test="condition.id.op=='in'">
+                    <foreach collection="condition.id.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                    </foreach>
+                </if>
+            </if>
+            <if test="condition.userName!=null">
+                ${condition.groupOp} ${condition.userName.field} ${condition.userName.op}
+                <if test="condition.userName.op!='in'"> #{condition.userName.data} </if>
+                <if test="condition.userName.op=='in'">
+                    <foreach collection="condition.userName.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                    </foreach>
+                </if>
+            </if>
+            <if test="condition.password!=null">
+                ${condition.groupOp} ${condition.password.field} ${condition.password.op}
+                <if test="condition.password.op!='in'"> #{condition.password.data} </if>
+                <if test="condition.password.op=='in'">
+                    <foreach collection="condition.password.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                    </foreach>
+                </if>
+            </if>
+
+            <if test="condition.name!=null">
+                ${condition.groupOp} ${condition.name.field} ${condition.name.op}
+                <if test="condition.name.op!='in'"> #{condition.name.data} </if>
+                <if test="condition.name.op=='in'">
+                    <foreach collection="condition.name.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                    </foreach>
+                </if>
+            </if>
+            <if test="condition.sex!=null">
+                ${condition.groupOp} ${condition.sex.field} ${condition.sex.op}
+                <if test="condition.sex.op!='in'"> #{condition.sex.data} </if>
+                <if test="condition.sex.op=='in'">
+                    <foreach collection="condition.sex.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                    </foreach>
+                </if>
+            </if>
+            <if test="condition.birthday!=null">
+                ${condition.groupOp} ${condition.birthday.field} ${condition.birthday.op}
+                <if test="condition.birthday.op!='in'"> #{condition.birthday.data} </if>
+                <if test="condition.birthday.op=='in'">
+                    <foreach collection="condition.birthday.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                    </foreach>
+                </if>
+            </if>
+            <if test="condition.telephone!=null">
+                ${condition.groupOp} ${condition.telephone.field} ${condition.telephone.op}
+                <if test="condition.telephone.op!='in'"> #{condition.telephone.data} </if>
+                <if test="condition.telephone.op=='in'">
+                    <foreach collection="condition.telephone.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                    </foreach>
+                </if>
+            </if>
+            <if test="condition.email!=null">
+                ${condition.groupOp} ${condition.email.field} ${condition.email.op}
+                <if test="condition.email.op!='in'"> #{condition.email.data} </if>
+                <if test="condition.email.op=='in'">
+                    <foreach collection="condition.email.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                    </foreach>
+                </if>
+            </if>
+            <if test="condition.description!=null">
+                ${condition.groupOp} ${condition.description.field} ${condition.description.op}
+                <if test="condition.description.op!='in'"> #{condition.description.data} </if>
+                <if test="condition.description.op=='in'">
+                    <foreach collection="condition.description.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                    </foreach>
+                </if>
+            </if>
+
+            <if test="condition.status!=null">
+                ${condition.groupOp} ${condition.status.field} ${condition.status.op}
+                <if test="condition.status.op!='in'"> #{condition.status.data} </if>
+                <if test="condition.status.op=='in'">
+                    <foreach collection="condition.status.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                    </foreach>
+                </if>
+            </if>
+            <if test="condition.creator!=null">
+                ${condition.groupOp} ${condition.creator.field} ${condition.creator.op}
+                <if test="condition.creator.op!='in'"> #{condition.creator.data} </if>
+                <if test="condition.creator.op=='in'">
+                    <foreach collection="condition.creator.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                    </foreach>
+                </if>
+            </if>
+            <if test="condition.createTime!=null">
+                ${condition.groupOp} ${condition.createTime.field} ${condition.createTime.op}
+                <if test="condition.createTime.op!='in'"> #{condition.createTime.data} </if>
+                <if test="condition.createTime.op=='in'">
+                    <foreach collection="condition.createTime.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                    </foreach>
+                </if>
+            </if>
+            <if test="condition.updater!=null">
+                ${condition.groupOp} ${condition.updater.field} ${condition.updater.op}
+                <if test="condition.updater.op!='in'"> #{condition.updater.data} </if>
+                <if test="condition.updater.op=='in'">
+                    <foreach collection="condition.updater.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                    </foreach>
+                </if>
+            </if>
+            <if test="condition.updateTime!=null">
+                ${condition.groupOp} ${condition.updateTime.field} ${condition.updateTime.op}
+                <if test="condition.updateTime.op!='in'"> #{condition.updateTime.data} </if>
+                <if test="condition.updateTime.op=='in'">
+                    <foreach collection="condition.updateTime.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                    </foreach>
+                </if>
+            </if>
+        </if>
+    </where>
+
+</select>
+
+    <select id="queryPage" resultType="User">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM user
+
+        <where>
+            <if test="condition!=null">
+                <if test="condition.SubSql != null">
+                    and id in (#{condition.SubSql})
+                </if>
+                <if test="condition.whereSql != null">
+                    ${condition.whereSql}
+                </if>
+
+                <if test="condition.id!=null">
+                    ${condition.groupOp} ${condition.id.field} ${condition.id.op}
+                    <if test="condition.id.op!='in'"> #{condition.id.data} </if>
+                    <if test="condition.id.op=='in'">
+                        <foreach collection="condition.id.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                        </foreach>
+                    </if>
+                </if>
+                <if test="condition.userName!=null">
+                    ${condition.groupOp} ${condition.userName.field} ${condition.userName.op}
+                    <if test="condition.userName.op!='in'"> #{condition.userName.data} </if>
+                    <if test="condition.userName.op=='in'">
+                        <foreach collection="condition.userName.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                        </foreach>
+                    </if>
+                </if>
+                <if test="condition.password!=null">
+                    ${condition.groupOp} ${condition.password.field} ${condition.password.op}
+                    <if test="condition.password.op!='in'"> #{condition.password.data} </if>
+                    <if test="condition.password.op=='in'">
+                        <foreach collection="condition.password.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                        </foreach>
+                    </if>
+                </if>
+
+                <if test="condition.name!=null">
+                    ${condition.groupOp} ${condition.name.field} ${condition.name.op}
+                    <if test="condition.name.op!='in'"> #{condition.name.data} </if>
+                    <if test="condition.name.op=='in'">
+                        <foreach collection="condition.name.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                        </foreach>
+                    </if>
+                </if>
+                <if test="condition.sex!=null">
+                    ${condition.groupOp} ${condition.sex.field} ${condition.sex.op}
+                    <if test="condition.sex.op!='in'"> #{condition.sex.data} </if>
+                    <if test="condition.sex.op=='in'">
+                        <foreach collection="condition.sex.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                        </foreach>
+                    </if>
+                </if>
+                <if test="condition.birthday!=null">
+                    ${condition.groupOp} ${condition.birthday.field} ${condition.birthday.op}
+                    <if test="condition.birthday.op!='in'"> #{condition.birthday.data} </if>
+                    <if test="condition.birthday.op=='in'">
+                        <foreach collection="condition.birthday.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                        </foreach>
+                    </if>
+                </if>
+                <if test="condition.telephone!=null">
+                    ${condition.groupOp} ${condition.telephone.field} ${condition.telephone.op}
+                    <if test="condition.telephone.op!='in'"> #{condition.telephone.data} </if>
+                    <if test="condition.telephone.op=='in'">
+                        <foreach collection="condition.telephone.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                        </foreach>
+                    </if>
+                </if>
+                <if test="condition.email!=null">
+                    ${condition.groupOp} ${condition.email.field} ${condition.email.op}
+                    <if test="condition.email.op!='in'"> #{condition.email.data} </if>
+                    <if test="condition.email.op=='in'">
+                        <foreach collection="condition.email.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                        </foreach>
+                    </if>
+                </if>
+                <if test="condition.description!=null">
+                    ${condition.groupOp} ${condition.description.field} ${condition.description.op}
+                    <if test="condition.description.op!='in'"> #{condition.description.data} </if>
+                    <if test="condition.description.op=='in'">
+                        <foreach collection="condition.description.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                        </foreach>
+                    </if>
+                </if>
+
+                <if test="condition.status!=null">
+                    ${condition.groupOp} ${condition.status.field} ${condition.status.op}
+                    <if test="condition.status.op!='in'"> #{condition.status.data} </if>
+                    <if test="condition.status.op=='in'">
+                        <foreach collection="condition.status.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                        </foreach>
+                    </if>
+                </if>
+                <if test="condition.creator!=null">
+                    ${condition.groupOp} ${condition.creator.field} ${condition.creator.op}
+                    <if test="condition.creator.op!='in'"> #{condition.creator.data} </if>
+                    <if test="condition.creator.op=='in'">
+                        <foreach collection="condition.creator.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                        </foreach>
+                    </if>
+                </if>
+                <if test="condition.createTime!=null">
+                    ${condition.groupOp} ${condition.createTime.field} ${condition.createTime.op}
+                    <if test="condition.createTime.op!='in'"> #{condition.createTime.data} </if>
+                    <if test="condition.createTime.op=='in'">
+                        <foreach collection="condition.createTime.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                        </foreach>
+                    </if>
+                </if>
+                <if test="condition.updater!=null">
+                    ${condition.groupOp} ${condition.updater.field} ${condition.updater.op}
+                    <if test="condition.updater.op!='in'"> #{condition.updater.data} </if>
+                    <if test="condition.updater.op=='in'">
+                        <foreach collection="condition.updater.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                        </foreach>
+                    </if>
+                </if>
+                <if test="condition.updateTime!=null">
+                    ${condition.groupOp} ${condition.updateTime.field} ${condition.updateTime.op}
+                    <if test="condition.updateTime.op!='in'"> #{condition.updateTime.data} </if>
+                    <if test="condition.updateTime.op=='in'">
+                        <foreach collection="condition.updateTime.data" item="listItem" open="(" close=")" separator=",">#{listItem}
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+        </where>
+        ORDER BY id DESC
+
+        <if test="offset != null">
+            limit ${offset}, ${rows}
+        </if>
+
+    </select>
+
+
+    <select id="findListByProperty" resultType="User">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM user WHERE status = 1 AND
+        ${property} = #{value}
+        ORDER BY create_time desc
+
+    </select>
+
+    <select id="findByProperty" resultType="User">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM user WHERE status = 1 AND
+        ${property} = #{value}
+        ORDER BY create_time desc
+        LIMIT 0,1
+    </select>
 
 </mapper>

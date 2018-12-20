@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
-  * @className BaseDAO
+  * @className IBaseDAO
   * Description 基础DAO
   * @author Menglei（lei.meng@cmgplex.com)
   * @date 2018/8/16 18:43
   * @version 1.0
   **/
-public interface BaseDAO<T extends BaseEntity> {
+public interface IBaseDAO<T extends BaseEntity> {
 
     /**
      * 新增单一对象
@@ -68,6 +68,16 @@ public interface BaseDAO<T extends BaseEntity> {
       **/
     T findByProperty(@Param("property") String property, @Param("value") Object value);
 
+    /**
+     * Description 根据一个条件获取所有数据
+     * @author Menglei（lei.meng@cmgplex.com)
+     * @date 17:43 2018/9/10
+     * @param property 字段名称
+     * @param value 字段值
+     * @return T返回对象
+     **/
+    List<T> findListByProperty(@Param("property") String property, @Param("value") Object value);
+
 
     /**
       * Description 多条件查询一条数据
@@ -77,4 +87,25 @@ public interface BaseDAO<T extends BaseEntity> {
       * @return T
       **/
     T queryOne(@Param("condition") Map<String, Object> condition);
+
+
+    /**
+      * Description 条件查询数量总和
+      * @author Menglei（lei.meng@cmgplex.com)
+      * @date 17:34 2018/12/14
+      * @param condition 条件
+      * @return int
+      **/
+    int queryCount(@Param("condition") Map<String, Object> condition);
+
+    /**
+     * 跟据条件组合查询对象集合，带翻页。
+     *
+     * @param condition 进行查询的条件集合
+     * @param offset 起始位置
+     * @param rows 限制记录数
+     * @return 返回范型对象集合
+     */
+    List<T> queryPage(@Param("condition") Map<String, Object> condition, @Param("offset") Integer offset,
+                             @Param("rows") Integer rows);
 }
