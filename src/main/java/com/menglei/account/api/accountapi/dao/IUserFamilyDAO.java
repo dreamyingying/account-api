@@ -1,6 +1,9 @@
 package com.menglei.account.api.accountapi.dao;
 
+import com.menglei.account.entity.UserFamily;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
   * @className IUserFamilyDAO
@@ -11,4 +14,10 @@ import org.springframework.stereotype.Repository;
   **/
 @Repository
 public interface IUserFamilyDAO {
+
+    Integer add(UserFamily userFamily);
+
+    UserFamily getByUserId(Long userId);
+
+    List<UserFamily> getByFamilyId(Long familyId);
 }

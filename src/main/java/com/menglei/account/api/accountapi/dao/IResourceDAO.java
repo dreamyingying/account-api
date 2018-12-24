@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
   * @version 1.0
   **/
 @Repository
-public interface IResourceDAOI extends IBaseDAO<Resource> {
+public interface IResourceDAO extends IBaseDAO<Resource> {
 }

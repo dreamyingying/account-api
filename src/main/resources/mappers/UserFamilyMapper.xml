@@ -8,4 +8,23 @@
     `family_id` as `familyId`
 </sql>
 
+    <!--新增-->
+    <insert id="add" parameterType="UserFamily">
+        INSERT INTO user_family(user_id,family_id)VALUES (#{userId},#{familyId})
+    </insert>
+
+    <select id="getByUserId" parameterType="java.lang.Long" resultType="UserFamily">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user_family
+        WHERE user_id = #{userId}
+    </select>
+
+    <select id="getByFamilyId" parameterType="java.lang.Long" resultType="UserFamily">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user_family
+        WHERE family_id = #{familyId}
+    </select>
+
 </mapper>

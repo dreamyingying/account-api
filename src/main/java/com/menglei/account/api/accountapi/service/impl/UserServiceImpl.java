@@ -1,7 +1,7 @@
 package com.menglei.account.api.accountapi.service.impl;
 
 import com.menglei.account.api.accountapi.common.BizData4PageAdminBuilder;
-import com.menglei.account.api.accountapi.dao.IUserDAOI;
+import com.menglei.account.api.accountapi.dao.IUserDAO;
 import com.menglei.account.api.accountapi.service.IUserService;
 import com.menglei.account.entity.BizData4PageAdmin;
 import com.menglei.account.entity.User;
@@ -23,7 +23,7 @@ import java.util.Map;
 public class UserServiceImpl implements IUserService {
 
     @Autowired
-    private IUserDAOI userDAO;
+    private IUserDAO userDAO;
 
     @Override
     public List<User> getUserList() {
@@ -44,8 +44,8 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public Boolean update(User user) {
-        String userName = "ml";
-        user.setUpdater(userName);
+        String tel = user.getTelephone();
+        user.setUpdater(tel);
         user.setUpdateTime(System.currentTimeMillis());
         return this.userDAO.update(user)==1;
     }
@@ -58,10 +58,12 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public Boolean add(User user) {
-        String userName = "ml";
-        user.setCreator(userName);
+        String tel = user.getTelephone();
+        user.setUserName(tel);
+        user.setPassword("UUKHSDDI5KPA43A8VL06V0TU2");
+        user.setCreator(tel);
         user.setCreateTime(System.currentTimeMillis());
-        user.setUpdater(userName);
+        user.setUpdater(tel);
         user.setUpdateTime(user.getCreateTime());
         user.setStatus((byte) 1);
         return this.userDAO.insert(user)==1;

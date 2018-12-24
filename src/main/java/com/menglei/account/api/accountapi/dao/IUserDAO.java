@@ -11,5 +11,5 @@ import org.springframework.stereotype.Component;
   * @version 1.0
   **/
 @Component
-public interface IUserDAOI extends IBaseDAO<User> {
+public interface IUserDAO extends IBaseDAO<User> {
 }

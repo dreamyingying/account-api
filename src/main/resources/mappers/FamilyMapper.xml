@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.menglei.account.api.accountapi.dao.IFamilyDAOI">
+<mapper namespace="com.menglei.account.api.accountapi.dao.IFamilyDAO">
 
 <sql id="Base_Column_List">
     `id` as `id` ,
@@ -19,5 +19,97 @@
     `updater` as `updater` ,
     `address` as `address`
 </sql>
+
+    <!-- 新增 -->
+    <insert id="insert" parameterType="User"   useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user(
+            name ,
+            password ,
+            user_id ,
+            deposit ,
+            receivable ,
+            payable ,
+            description ,
+            status ,
+            creator ,
+            create_time ,
+            update_time ,
+            updater ,
+            address
+        ) VALUES (
+        #{name},
+        #{password},
+        #{userId},
+        #{deposit},
+        #{receivable},
+        #{payable},
+        #{description},
+        #{status},
+        #{creator},
+        #{createTime},
+        #{updateTime},
+        #{updater},
+        #{address}
+        )
+</insert>
+
+    <!-- 查询 -->
+    <select id="findById" parameterType="java.lang.Long" resultType="Family">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM user_family
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+            AND status = 1
+        </trim>
+    </select>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="Family">
+        UPDATE family
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="status!=null">
+                status = #{status},
+            </if>
+            <if test="creator!=null">
+                creator = #{creator},
+            </if>
+            <if test="createTime!=null">
+                create_time = #{createTime},
+            </if>
+            <if test="updater!=null">
+                updater = #{updater},
+            </if>
+            <if test="updateTime!=null">
+                update_time = #{updateTime},
+            </if>
+            <if test="password!=null">
+                password = #{password},
+            </if>
+            <if test="name!=null">
+                name = #{name},
+            </if>
+            <if test="userId!=null">
+                user_id = #{userId},
+            </if>
+            <if test="deposit!=null">
+                deposit = #{deposit},
+            </if>
+            <if test="receivable!=null">
+                receivable = #{receivable},
+            </if>
+            <if test="payable!=null">
+                payable = #{payable},
+            </if>
+            <if test="address!=null">
+                address = #{address},
+            </if>
+            <if test="description!=null">
+                description = #{description},
+            </if>
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
 
 </mapper>

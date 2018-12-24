@@ -1,7 +1,12 @@
 package com.menglei.account.api.accountapi.service.impl;
 
+import com.menglei.account.api.accountapi.dao.IUserFamilyDAO;
 import com.menglei.account.api.accountapi.service.IUserFamilyService;
+import com.menglei.account.entity.UserFamily;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
   * @className UserFamilyServiceImpl
@@ -12,4 +17,22 @@ import org.springframework.stereotype.Service;
   **/
 @Service("userFamilyService")
 public class UserFamilyServiceImpl implements IUserFamilyService {
+
+    @Autowired
+    private IUserFamilyDAO userFamilyDAO;
+
+    @Override
+    public Boolean add(UserFamily userFamily) {
+        return this.userFamilyDAO.add(userFamily)==1;
+    }
+
+    @Override
+    public UserFamily getByUserId(Long userId) {
+        return this.userFamilyDAO.getByUserId(userId);
+    }
+
+    @Override
+    public List<UserFamily> getByFamilyId(Long familyId) {
+        return this.userFamilyDAO.getByFamilyId(familyId);
+    }
 }
