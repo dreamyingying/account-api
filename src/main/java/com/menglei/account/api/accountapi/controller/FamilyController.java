@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
   * @className FamilyController
   * Description 家庭接口
@@ -89,6 +91,75 @@ public class FamilyController {
             e.printStackTrace();
         } finally {
             log.info("【 end execute updateFamily，family={} 】",family);
+        }
+        return jr;
+    }
+
+    @GetMapping(value = "/all")
+    public JsonResult<List<Family>> findAll()throws NoDataException,UnknownException {
+        log.info("【 start execute findAll 】");
+        JsonResult<List<Family>> jr = new JsonResult<>();
+        try {
+            List<Family> familyList = this.familyService.findAll();
+            if (null == familyList || familyList.size() == 0) {
+                throw new NoDataException("未发现符合条件的数据");
+            }
+            jr.setData(familyList);
+            jr.setMessage("获取Family数据成功");
+            jr.setCode("8200");
+        } catch (NoDataException e){
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UnknownException();
+        } finally {
+            log.info("【 end execute findAll 】");
+        }
+        return jr;
+    }
+
+    @GetMapping(value = "/byPassword/{id}/{password}")
+    public JsonResult<Family> getFamilyByPassword(@PathVariable(value = "id")Long id,@PathVariable(value = "password")String password)throws NoDataException,UnknownException {
+        log.info("【 start execute getFamilyByPassword，id={},password={} 】",id,password);
+        JsonResult<Family> jr = new JsonResult<>();
+        try {
+            Family family = this.familyService.getByPassword(id,password);
+            if (null == family) {
+                throw new NoDataException("未发现符合条件的数据");
+            }
+            jr.setData(family);
+            jr.setMessage("获取Family数据成功");
+            jr.setCode("8200");
+        } catch (NoDataException e){
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UnknownException();
+        } finally {
+            log.info("【 end execute getFamilyByPassword，id={},password={} 】",id,password);
+        }
+        return jr;
+    }
+
+    @GetMapping(value = "/byName/{name}")
+    public JsonResult<Family> getFamilyByName(@PathVariable(value = "name")String name)throws NoDataException,UnknownException {
+        log.info("【 start execute getFamilyByName，name={}】",name);
+        JsonResult<Family> jr = new JsonResult<>();
+        try {
+            Family family = this.familyService.getByName(name);
+            if (null == family) {
+                throw new NoDataException("未发现符合条件的数据");
+            }
+            jr.setData(family);
+            jr.setMessage("获取Family数据成功");
+            jr.setCode("8200");
+        } catch (NoDataException e){
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UnknownException();
+        } finally {
+            log.info("【 end execute getFamilyByName，name={}】",name);
         }
         return jr;
     }

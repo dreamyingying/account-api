@@ -1,6 +1,7 @@
 package com.menglei.account.api.accountapi.dao;
 
 import com.menglei.account.entity.Family;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -12,4 +13,6 @@ import org.springframework.stereotype.Repository;
   **/
 @Repository
 public interface IFamilyDAO extends IBaseDAO<Family> {
+
+    Family getByPassword(@Param(value = "id")Long id,@Param(value = "password")String password);
 }

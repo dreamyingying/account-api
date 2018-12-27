@@ -21,8 +21,8 @@
 </sql>
 
     <!-- 新增 -->
-    <insert id="insert" parameterType="User"   useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO user(
+    <insert id="insert" parameterType="Family"   useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO family(
             name ,
             password ,
             user_id ,
@@ -57,7 +57,7 @@
     <select id="findById" parameterType="java.lang.Long" resultType="Family">
         SELECT
         <include refid="Base_Column_List" />
-        FROM user_family
+        FROM family
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             AND id = #{id}
             AND status = 1
@@ -111,5 +111,33 @@
         WHERE
         id = #{id}
     </update>
+
+    <select id="findAll" resultType="Family">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM family
+        WHERE status = 1
+        <if test="orderBy!=null">
+            ORDER BY <foreach collection="orderBy" index="key" item="value" separator="," >${key} ${value}</foreach>
+        </if>
+    </select>
+
+    <select id="getByPassword" resultType="Family">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM family
+        WHERE status = 1
+        AND id=#{id}
+        AND password=#{password}
+    </select>
+
+    <select id="findByProperty" resultType="Family">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM family WHERE status = 1 AND
+        ${property} = #{value}
+        ORDER BY create_time desc
+        LIMIT 0,1
+    </select>
 
 </mapper>

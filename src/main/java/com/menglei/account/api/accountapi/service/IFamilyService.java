@@ -2,6 +2,8 @@ package com.menglei.account.api.accountapi.service;
 
 import com.menglei.account.entity.Family;
 
+import java.util.List;
+
 /**
   * @className IFamilyService
   * Description IFamilyService
@@ -37,4 +39,31 @@ public interface IFamilyService {
       * @return
       **/
     Boolean update(Family family);
+
+    /**
+      * Description 获取所有的家庭
+      * @author Menglei（lei.meng@cmgplex.com)
+      * @date 16:38 2018/12/25
+      * @param
+      * @return
+      **/
+    List<Family> findAll();
+
+    /**
+      * Description 通过id和密码获取家庭信息
+      * @author Menglei（lei.meng@cmgplex.com)
+      * @date 17:10 2018/12/25
+      * @param
+      * @return
+      **/
+    Family getByPassword(Long id,String password);
+
+    /**
+      * Description 通过名称获取家庭信息
+      * @author Menglei（lei.meng@cmgplex.com)
+      * @date 22:50 2018/12/25
+      * @param
+      * @return
+      **/
+    Family getByName(String name);
 }
